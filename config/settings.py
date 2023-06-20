@@ -35,9 +35,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 # Check if the RENDER environment variable is truthy
 if env("RENDER"):
@@ -62,8 +62,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     "django_extensions",
     "rest_framework",
     "library_api",
@@ -71,13 +71,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -160,7 +160,7 @@ if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 # Set the default auto field for model primary keys
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
